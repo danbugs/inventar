@@ -7,3 +7,13 @@ edition = "2018"
 
 [dependencies]
 rocket = "0.4.10"
+diesel = { version = "1.4.4", features = ["postgres"] }
+dotenv = "0.15.0"
+
+[[bin]]
+name = "inventar_api"
+path = "src/main.rs"
+
+[lib]
+name = "inventar_lib"
+path = "src/lib.rs"
