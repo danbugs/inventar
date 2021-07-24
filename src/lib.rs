@@ -2,7 +2,6 @@
 extern crate dotenv;
 #[macro_use] extern crate serde_derive;
 
-
 use diesel::prelude::*;
 use diesel::pg::PgConnection;
 use dotenv::dotenv;
@@ -22,12 +21,8 @@ pub fn establish_connection () -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn insert_thing<'a>(conn: &PgConnection, name: &'a str) -> QueryResult<Thing> {
+pub fn insert_thing<'a>(conn: &PgConnection, new_thing: NewThing) -> QueryResult<Thing> {
     use schema::things;
-
-    let new_thing = NewThing {
-        thing_name: name.to_string()
-    };
 
     diesel::insert_into(things::table)
         .values(&new_thing)

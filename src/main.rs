@@ -4,9 +4,8 @@
 extern crate diesel;
 extern crate inventar_lib;
 
-use rocket::http::{RawStr, Status};
 use rocket::Request;
-use rocket::http::Method;
+use rocket::http::{Method, Status};
 use rocket_contrib::json::Json;
 
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
@@ -20,10 +19,10 @@ fn index() -> std::string::String {
     "Welcome to the inventar_api!".to_string()
 }
 
-#[post("/things/<name>")]
-fn create_thing(name: &RawStr) -> Result<Status, Status> {
+#[post("/things", data = "<t>")]
+fn create_thing(t: Json<NewThing>) -> Result<Status, Status> {
     let connection = establish_connection();
-    insert_thing(&connection, name)
+    insert_thing(&connection, t.into_inner())
         .map(|_| Status::Created)
         .map_err(|_| Status::InternalServerError)
 }
