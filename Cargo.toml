@@ -9,6 +9,10 @@ edition = "2018"
 rocket = "0.4.10"
 diesel = { version = "1.4.4", features = ["postgres"] }
 dotenv = "0.15.0"
+rocket_cors = "0.5.2"
+serde = "1.0.126"
+serde_derive = "1.0.126"
+rocket_contrib = "0.4.10"
 
 [[bin]]
 name = "inventar_api"

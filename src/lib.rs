@@ -1,6 +1,7 @@
-#[macro_use]
-extern crate diesel;
+#[macro_use] extern crate diesel;
 extern crate dotenv;
+#[macro_use] extern crate serde_derive;
+
 
 use diesel::prelude::*;
 use diesel::pg::PgConnection;
@@ -21,7 +22,7 @@ pub fn establish_connection () -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn insert_thing<'a>(conn: &PgConnection, name: &'a str) -> Thing {
+pub fn insert_thing<'a>(conn: &PgConnection, name: &'a str) -> QueryResult<Thing> {
     use schema::things;
 
     let new_thing = NewThing {
@@ -31,5 +32,4 @@ pub fn insert_thing<'a>(conn: &PgConnection, name: &'a str) -> Thing {
     diesel::insert_into(things::table)
         .values(&new_thing)
         .get_result(conn)
-        .expect("Error saving new thing")
 }
