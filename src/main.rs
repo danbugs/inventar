@@ -21,8 +21,12 @@ fn index() -> std::string::String {
 
 #[post("/things", data = "<t>")]
 fn create_thing(t: Json<NewThing>) -> Result<Status, Status> {
+    use schema::things;
+
     let connection = establish_connection();
-    insert_thing(&connection, t.into_inner())
+    diesel::insert_into(things::table)
+        .values(t.into_inner())
+        .execute(&connection)
         .map(|_| Status::Created)
         .map_err(|_| Status::InternalServerError)
 }
@@ -37,6 +41,20 @@ fn read_things() -> Result<Json<Vec<Thing>>, Status> {
         .map_err(|_| Status::InternalServerError)
 
 }
+
+
+#[delete("/things/<t_id>")]
+fn delete_things(t_id: i32) -> Result<Status, Status> {
+    use inventar_lib::schema::things::dsl::*;
+
+    let connection = establish_connection();
+    diesel::delete(things.filter(thing_id.eq(t_id)))
+        .execute(&connection)
+        .map(|_| Status::Ok)
+        .map_err(|_| Status::InternalServerError)
+
+}
+
 
 #[catch(404)]
 fn not_found(req: &Request) -> String {
@@ -57,7 +75,7 @@ fn main() {
     .to_cors().expect("Failed");
 
     rocket::ignite()
-        .mount("/", routes![index, create_thing, read_things])
+        .mount("/", routes![index, create_thing, read_things, delete_things])
         .register(catchers![not_found])
         .attach(cors)
         .launch();
