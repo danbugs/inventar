@@ -10,6 +10,7 @@ pub mod constants;
 
 pub mod handlers;
 use self::handlers::things;
+use self::handlers::users;
 use self::handlers::catchers;
 
 fn main() {
@@ -26,6 +27,7 @@ fn main() {
 
     rocket::ignite()
         .mount("/things", routes![things::create_thing, things::read_things, things::delete_thing])
+        .mount("/users", routes![users::register, users::login])
         .register(catchers![catchers::not_found])
         .attach(cors)
         .launch();

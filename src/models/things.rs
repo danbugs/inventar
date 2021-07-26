@@ -1,12 +1,12 @@
-use super::schema::things;
+use super::super::schema::things;
 
-#[derive(Serialize, Deserialize, Queryable, Debug)]
+#[derive(Serialize, Queryable)]
 pub struct Thing {
     pub thing_id: i32,
     pub thing_name: String,
 }
 
-#[derive(Insertable, Deserialize)]
+#[derive(Deserialize, Insertable)]
 #[table_name="things"]
 pub struct NewThing {
     pub thing_name: String,

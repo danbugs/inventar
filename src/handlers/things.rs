@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use inventar_lib::{establish_connection, db::models::{NewThing, Thing}, db::schema::things::{self, dsl::*}};
+use inventar_lib::{establish_connection, models::things::{NewThing, Thing}, schema::things::{self, dsl::*}};
 use rocket::http::Status;
 use rocket_contrib::json::Json;
 
