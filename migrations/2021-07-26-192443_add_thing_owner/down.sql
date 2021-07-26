@@ -1,0 +1,2 @@
+ALTER TABLE things DROP CONSTRAINT fk_user;
+ALTER TABLE things DROP COLUMN user_id;
