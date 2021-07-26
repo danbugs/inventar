@@ -1,70 +1,20 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
-extern crate diesel;
-extern crate inventar_lib;
 
-use rocket::Request;
-use rocket::http::{Method, Status};
-use rocket_contrib::json::Json;
+use rocket::http::Method;
 
 use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
-use self::diesel::prelude::*;
-use self::inventar_lib::*;
-use self::models::*;
+pub mod constants;
 
-#[get("/")]
-fn index() -> std::string::String {
-    "Welcome to the inventar_api!".to_string()
-}
-
-#[post("/things", data = "<t>")]
-fn create_thing(t: Json<NewThing>) -> Result<Status, Status> {
-    use schema::things;
-
-    let connection = establish_connection();
-    diesel::insert_into(things::table)
-        .values(t.into_inner())
-        .execute(&connection)
-        .map(|_| Status::Created)
-        .map_err(|_| Status::InternalServerError)
-}
-
-#[get("/things")]
-fn read_things() -> Result<Json<Vec<Thing>>, Status> {
-    use inventar_lib::schema::things::dsl::*;
-
-    let connection = establish_connection();
-    things.load::<Thing>(&connection)
-        .map(|ts| Json(ts))
-        .map_err(|_| Status::InternalServerError)
-
-}
-
-
-#[delete("/things/<t_id>")]
-fn delete_things(t_id: i32) -> Result<Status, Status> {
-    use inventar_lib::schema::things::dsl::*;
-
-    let connection = establish_connection();
-    diesel::delete(things.filter(thing_id.eq(t_id)))
-        .execute(&connection)
-        .map(|_| Status::Ok)
-        .map_err(|_| Status::InternalServerError)
-
-}
-
-
-#[catch(404)]
-fn not_found(req: &Request) -> String {
-    format!("Sorry, '{}' is not a valid path.", req.uri())
-}
+pub mod handlers;
+use self::handlers::things;
+use self::handlers::catchers;
 
 fn main() {
-    let allowed_origins = AllowedOrigins::some_exact(&["https://inventar.vercel.app/", "http://localhost:5000/"]);
+    let allowed_origins = AllowedOrigins::some_exact(&[constants::PROD_ADDRESS, constants::DEV_ADDRESS]);
 
-    // You can also deserialize this
     let cors = rocket_cors::CorsOptions {
         allowed_origins,
         allowed_methods: vec![Method::Get, Method::Post, Method::Delete, Method::Put].into_iter().map(From::from).collect(),
@@ -75,8 +25,8 @@ fn main() {
     .to_cors().expect("Failed");
 
     rocket::ignite()
-        .mount("/", routes![index, create_thing, read_things, delete_things])
-        .register(catchers![not_found])
+        .mount("/things", routes![things::create_thing, things::read_things, things::delete_thing])
+        .register(catchers![catchers::not_found])
         .attach(cors)
         .launch();
 }

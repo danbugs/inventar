@@ -1,4 +1,3 @@
-#![allow(proc_macro_derive_resolution_fallback)]
 use super::schema::things;
 
 #[derive(Serialize, Deserialize, Queryable, Debug)]
