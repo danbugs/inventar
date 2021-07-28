@@ -1,8 +1,19 @@
 table! {
+    categories (category_id) {
+        category_id -> Int4,
+        category_name -> Varchar,
+        category_color -> Nullable<Varchar>,
+        user_id -> Int4,
+    }
+}
+
+table! {
     things (thing_id) {
         thing_id -> Int4,
         thing_name -> Varchar,
         user_id -> Int4,
+        category_id -> Nullable<Int4>,
+        thing_description -> Nullable<Varchar>,
     }
 }
 
@@ -16,9 +27,10 @@ table! {
     }
 }
 
-joinable!(things -> users (user_id));
+joinable!(things -> categories (category_id));
 
 allow_tables_to_appear_in_same_query!(
+    categories,
     things,
     users,
 );

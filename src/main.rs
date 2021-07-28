@@ -12,6 +12,7 @@ pub mod handlers;
 use self::handlers::things;
 use self::handlers::users;
 use self::handlers::catchers;
+use self::handlers::categories;
 
 fn main() {
     let allowed_origins = AllowedOrigins::some_exact(&[constants::PROD_ADDRESS, constants::DEV_ADDRESS]);
@@ -28,6 +29,7 @@ fn main() {
     rocket::ignite()
         .mount("/things", routes![things::create_thing, things::read_things, things::delete_thing])
         .mount("/users", routes![users::register, users::login])
+        .mount("/categories", routes![categories::read_categories, categories::create_category])
         .register(catchers![catchers::not_found])
         .attach(cors)
         .launch();
