@@ -1,4 +1,4 @@
-import { LoginUser, IncomingCategory, NewThing } from "./models";
+import { IncomingCategory, IncomingThing } from "./models";
 import { server, colorStyles } from "./constants";
 
 export async function createThing() {
@@ -6,16 +6,18 @@ export async function createThing() {
   let formData = new FormData(formElement);
   let nt;
   if(formData.get("category") === "new") {
-    nt = new NewThing(
+    nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
-      await createCategory()
+      await createCategory(),
+      formData.get("thing_description"),
     );
   } else {
-    nt = new NewThing(
+    nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
-      parseInt(formData.get("category"))
+      parseInt(formData.get("category")),
+      formData.get("thing_description"),
     );  
   }
 
