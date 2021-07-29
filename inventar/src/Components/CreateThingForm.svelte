@@ -39,6 +39,7 @@
             on:change={checkSelectedCategory}
             required
           >
+            <option selected value=""></option>
             {#each categories as category}
               <option value={category.category_id}>{category.category_name}</option>
             {/each}
