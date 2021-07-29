@@ -503,7 +503,7 @@ dependencies = [
 
 [[package]]
 name = "inventar"
-version = "0.6.1"
+version = "0.6.2"
 dependencies = [
  "argon2rs",
  "diesel",
