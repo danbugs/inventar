@@ -2,7 +2,7 @@
   import { logout } from "../lib";
   export let isLoggedIn = false;
   function handleLogout() {
-    isLoggedIn = logout();
+    isLoggedIn = logout()
   }
 </script>
 

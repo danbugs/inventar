@@ -8,12 +8,13 @@
   import { LoginUser, RegisterUser } from "../models";
   export let isLoggedIn;
   let isRegistered = true;
+  let justRegistered = false;
 
   function handleLogin() {
     let formElement = document.getElementById("loginForm");
     let formData = new FormData(formElement);
     let lu = new LoginUser(formData.get("user_name"), formData.get("user_pwd"));
-    isLoggedIn = login(lu);
+    isLoggedIn = login(lu)
   }
 
   function handleRegister() {
@@ -24,7 +25,11 @@
       formData.get("user_name"),
       formData.get("user_pwd")
     );
-    isRegistered = register(ru);
+    isRegistered = register(ru)
+      .then((value) => {
+        if (value) justRegistered = true;
+        return value;
+      });
   }
 </script>
 
@@ -38,10 +43,17 @@
       {#if isRegistered}
         <LoginForm bind:isRegistered on:submit={handleLogin} />
       {:else}
-        <RegistrationForm bind:isRegistered on:submit={handleRegister} />
+        <RegistrationForm bind:justRegistered bind:isRegistered on:submit={handleRegister} />
       {/if}
     </div>
+    {#if justRegistered}
+      <div class="m-3 col-sm-12 col-md-6">
+        <p class="badge bg-light text-uppercase text-dark">
+          Registered succesfully
+        </p>
+      </div>
+    {/if}
   </div>
 {:catch error}
-    <ErrorView errorMsg={error.message} />
+  <ErrorView errorMsg={error.message} />
 {/await}

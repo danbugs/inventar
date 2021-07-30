@@ -90,7 +90,7 @@ export async function login(lu) {
 
   if (res.ok) {
     sessionStorage.setItem("loggedIn", lu.user_name);
-    return true;
+    return true
   } else {
     sessionStorage.setItem("loggedIn", "false");
     throw new Error(res.statusText);
