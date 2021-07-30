@@ -5,7 +5,8 @@
   import Spinner from "../Components/Spinner.svelte";
   import ErrorView from "../Components/ErrorView.svelte";
   import SloganView from "../Components/SloganView.svelte";
-  let isLoggedIn = sessionStorage.getItem("loggedIn") !== "false";
+  let isLoggedIn = sessionStorage.getItem("loggedIn") !== "false" && sessionStorage.getItem("loggedIn") !== null;
+  console.log(isLoggedIn);
 </script>
 
 <svelte:head>
