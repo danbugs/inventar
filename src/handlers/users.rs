@@ -12,6 +12,17 @@ pub fn register(ru: Json<RegisteringUser>) -> Result<Status, Status> {
     let nu = NewUser::new(ru.into_inner());
     let connection = establish_connection();
 
+    // check if username already exists
+    match users
+        .filter(user_name.eq(&nu.user_name).or(user_email.eq(&nu.user_email)))
+        .first::<User>(&connection)
+    {
+        Ok(_) => {
+            return Ok(Status::Accepted);
+        }
+        Err(_) => {}
+    }
+
     diesel::insert_into(users::table)
         .values(nu)
         .execute(&connection)

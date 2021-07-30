@@ -43,7 +43,7 @@
       {#if isRegistered}
         <LoginForm bind:isRegistered on:submit={handleLogin} />
       {:else}
-        <RegistrationForm bind:justRegistered bind:isRegistered on:submit={handleRegister} />
+        <RegistrationForm bind:isRegistered on:submit={handleRegister} />
       {/if}
     </div>
     {#if justRegistered}

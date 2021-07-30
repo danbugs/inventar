@@ -35,8 +35,8 @@ pub struct LoginUser {
 #[derive(Insertable)]
 #[table_name="users"]
 pub struct NewUser {
-    user_name: String,
-    user_email: String,
+    pub user_name: String,
+    pub user_email: String,
     user_pwd_hash: Vec<u8>,
     user_salt: String
 }
