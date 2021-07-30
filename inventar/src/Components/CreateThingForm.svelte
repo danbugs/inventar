@@ -29,7 +29,13 @@
           <input class="form-control" type="text" name="thing_name" required />
         </div>
         <div class="col-sm-12 col-md-2 ">
-          <label class="col-form-label" for="category">Category:</label>
+          <label class="col-form-label" for="thing_description">Thing description:</label>
+        </div>
+        <div class="col-sm-12 col-md-10">
+          <textarea class="form-control" rows="4"type="text" name="thing_description"/>
+        </div>
+        <div class="col-sm-12 col-md-2 ">
+          <label class="col-form-label" for="category">Thing Category:</label>
         </div>
         <div class="col-sm-12 col-md-10">
           <select
@@ -37,7 +43,6 @@
             bind:value={selectedCategory}
             class="form-select"
             on:change={checkSelectedCategory}
-            required
           >
             <option selected value=""></option>
             {#each categories as category}
