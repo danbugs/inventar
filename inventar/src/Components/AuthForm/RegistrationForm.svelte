@@ -10,6 +10,7 @@
     <input class="form-control" type="text" name="user_email" required/>
     <label class="form-label" for="user_name">Username:</label><br />
     <input class="form-control" type="text" name="user_name" required/>
+    <div class="form-text">The username must contain 3 or more characters, its' first character must be a alphabetic, and it may contain numbers and some symbols (.$!@-_)</div>
     <label class="form-label" for="user_pwd">Password:</label><br />
     <input class="form-control" type="password" name="user_pwd" required/>
     <div class="form-text">The password must be between 8 to 15 characters, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.</div>

@@ -113,9 +113,16 @@ function validatePassword(password) {
   return re.test(password);
 }
 
+function validateUsername(username) {
+  const re = /^[a-zA-Z][a-zA-Z0-9.$!@\-_]{2,}$/;
+  return re.test(username);
+}
+
 export async function register(ru) {
   if (!validateEmail(ru.user_email)) throw new Error("Invalid e-mail");
   if (!validatePassword(ru.user_pwd)) throw new Error("Invalid password");
+  if (!validateUsername(ru.user_name)) throw new Error("Invalid username");
+  
   let res = await fetch(server + `/users/register`, {
     method: "POST",
     body: JSON.stringify(ru),
