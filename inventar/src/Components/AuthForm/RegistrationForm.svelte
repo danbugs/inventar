@@ -12,6 +12,7 @@
     <input class="form-control" type="text" name="user_name" required/>
     <label class="form-label" for="user_pwd">Password:</label><br />
     <input class="form-control" type="password" name="user_pwd" required/>
+    <div class="form-text">The password must be between 8 to 15 characters, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.</div>
   </div>
   <input class="btn btn-primary" type="submit" value="Register" />
 </form>

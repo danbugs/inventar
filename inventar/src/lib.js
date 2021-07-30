@@ -108,8 +108,14 @@ function validateEmail(email) {
   return re.test(email);
 }
 
+function validatePassword(password) {
+  const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  return re.test(password);
+}
+
 export async function register(ru) {
   if (!validateEmail(ru.user_email)) throw new Error("Invalid e-mail");
+  if (!validatePassword(ru.user_pwd)) throw new Error("Invalid password");
   let res = await fetch(server + `/users/register`, {
     method: "POST",
     body: JSON.stringify(ru),
