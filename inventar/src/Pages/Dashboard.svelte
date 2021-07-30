@@ -4,6 +4,7 @@
   import ErrorView from "../Components/ErrorView.svelte";
   import CreateThingForm from "../Components/CreateThingForm.svelte";
   import ThingCard from "../Components/ThingCard.svelte";
+  import App from "./App.svelte";
 
   let things;
   let categories;
@@ -52,6 +53,9 @@
           on:click={() => handleDelete(thing.thing_id)}
         />
       {/each}
+      {#if ts.length === 0}
+        <div class="justify-content-center fs-1 fw-bold">Nothing here yet...</div>
+      {/if}
     {:catch error}
       <ErrorView errorMsg={error.message} />
     {/await}
