@@ -3,9 +3,9 @@
   export let displayTryAgainButton = true;
 </script>
 
-<div class="col-md-6">
+<div class="p-3 col-sm-12 col-md-6">
   <div
-    class="fs-3 fw-bold text-danger badge bg-light text-center landing-message-spacing text-uppercase"
+    class="fs-3 fw-bold text-danger text-wrap badge bg-light text-center landing-message-spacing text-uppercase"
   >
     {errorMsg}
   </div>

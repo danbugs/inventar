@@ -15,7 +15,7 @@
 </script>
 
 <div class="row">
-  <div class="m-3 bg-light p-3 border rounded-3">
+  <div class="mt-3 mb-3 bg-light p-3 border rounded-3">
     <div class="h3 text-uppercase fw-bold text-center">
       Create something new!
     </div>

@@ -5,20 +5,20 @@ export async function createThing() {
   let formElement = document.querySelector("form");
   let formData = new FormData(formElement);
   let nt;
-  if(formData.get("category") === "new") {
+  if (formData.get("category") === "new") {
     nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
       await createCategory(),
-      formData.get("thing_description"),
+      formData.get("thing_description")
     );
   } else {
     nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
       parseInt(formData.get("category")),
-      formData.get("thing_description"),
-    );  
+      formData.get("thing_description")
+    );
   }
 
   let res = await fetch(server + `/things/`, {
@@ -39,7 +39,7 @@ export async function createCategory() {
   let nc = new IncomingCategory(
     formData.get("category_name"),
     formData.get("category_color"),
-    sessionStorage.getItem("loggedIn"),
+    sessionStorage.getItem("loggedIn")
   );
 
   let res = await fetch(server + `/categories/`, {
@@ -52,7 +52,8 @@ export async function createCategory() {
     return json.category_id;
   } else {
     throw new Error(res.statusText);
-  }}
+  }
+}
 
 export async function readThings() {
   let res = await fetch(
@@ -108,15 +109,32 @@ function validateEmail(email) {
   return re.test(email);
 }
 
+function validatePassword(password) {
+  const re =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+  return re.test(password);
+}
+
+function validateUsername(username) {
+  const re = /^[a-zA-Z][a-zA-Z0-9.$!@\-_]{2,}$/;
+  return re.test(username);
+}
+
 export async function register(ru) {
   if (!validateEmail(ru.user_email)) throw new Error("Invalid e-mail");
+  if (!validatePassword(ru.user_pwd)) throw new Error("Invalid password");
+  if (!validateUsername(ru.user_name)) throw new Error("Invalid username");
+
   let res = await fetch(server + `/users/register`, {
     method: "POST",
     body: JSON.stringify(ru),
   });
 
-  if (res.ok) {
+  console.log(res);
+  if (res.status === 201) {
     return true;
+  } else if (res.status === 202) {
+    throw new Error("existing username or email");
   } else {
     throw new Error(res.statusText);
   }
