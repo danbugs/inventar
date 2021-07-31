@@ -24,6 +24,8 @@ table! {
         user_email -> Varchar,
         user_pwd_hash -> Bytea,
         user_salt -> Varchar,
+        verified_email -> Bool,
+        verification_code -> Varchar,
     }
 }
 

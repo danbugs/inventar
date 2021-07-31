@@ -1,7 +1,7 @@
+use crate::get_random_string;
+
 use super::super::schema::users;
 use argon2rs::argon2i_simple;
-use rand::{thread_rng, Rng};
-use rand::distributions::Alphanumeric;
 
 #[derive(Queryable, Serialize)]
 pub struct User {
@@ -9,7 +9,9 @@ pub struct User {
     pub user_name: String,
     pub user_email: String,
     pub user_pwd_hash: Vec<u8>,
-    pub user_salt: String
+    pub user_salt: String,
+    pub verified_email: bool,
+    pub verification_code: String
 }
 
 impl User {
@@ -38,19 +40,17 @@ pub struct NewUser {
     pub user_name: String,
     pub user_email: String,
     user_pwd_hash: Vec<u8>,
-    user_salt: String
+    user_salt: String,
+    pub verification_code: String
 }
 
 impl NewUser {
     pub fn new(nu: RegisteringUser) -> Self {
-        let salt: String = thread_rng()
-        .sample_iter(&Alphanumeric)
-        .take(30)
-        .map(char::from)
-        .collect();
+        let salt: String = get_random_string();
+        let verification_code = get_random_string();
 
         let pwd = argon2i_simple(&nu.user_pwd, &salt).to_vec();
-        NewUser {user_name: nu.user_name, user_email: nu.user_email, user_pwd_hash: pwd, user_salt: salt}
+        NewUser {user_name: nu.user_name, user_email: nu.user_email, user_pwd_hash: pwd, user_salt: salt, verification_code: verification_code}
     }
 }
 

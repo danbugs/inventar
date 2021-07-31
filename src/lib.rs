@@ -13,6 +13,9 @@ pub mod schema;
 
 use schema::{users::dsl::*, categories::dsl::*};
 
+use rand::{thread_rng, Rng};
+use rand::distributions::Alphanumeric;
+
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
 
@@ -44,4 +47,12 @@ pub fn cid_from_cname(cn: Option<String>) -> Option<i32> {
         },
         None => None
     }
+}
+
+pub fn get_random_string() -> String {
+    thread_rng()
+    .sample_iter(&Alphanumeric)
+    .take(30)
+    .map(char::from)
+    .collect()
 }

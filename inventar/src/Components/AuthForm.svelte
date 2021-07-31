@@ -48,8 +48,8 @@
     </div>
     {#if justRegistered}
       <div class="m-3 col-sm-12 col-md-6">
-        <p class="badge bg-light text-uppercase text-dark">
-          Registered succesfully
+        <p class="text-wrap badge bg-light text-uppercase text-dark increased-letter-spacing">
+          Registered succesfully! Check your e-mail (spam/junk too) to verify your account.
         </p>
       </div>
     {/if}
@@ -57,3 +57,9 @@
 {:catch error}
   <ErrorView errorMsg={error.message} />
 {/await}
+
+<style>
+  .increased-letter-spacing {
+    letter-spacing: 0.15em;
+  }
+</style>
