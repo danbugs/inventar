@@ -7,6 +7,12 @@ use inventar_lib::{
 use rocket::http::Status;
 use rocket_contrib::json::Json;
 
+use lettre::transport::smtp::authentication::Credentials;
+use lettre::{Message, SmtpTransport, Transport};
+
+use dotenv::dotenv;
+use std::env;
+
 #[post("/register", data = "<ru>")]
 pub fn register(ru: Json<RegisteringUser>) -> Result<Status, Status> {
     let nu = NewUser::new(ru.into_inner());
@@ -45,5 +51,31 @@ pub fn login(lu: Json<LoginUser>) -> Result<Status, Status> {
             }
         }
         Err(_) => Err(Status::Unauthorized),
+    }
+}
+
+#[get("/send_mail_to/<email>")]
+pub fn send_mail_to(email: String) -> Result<Status, Status> {
+    
+    let email = Message::builder()
+        .from("Inventar <donotreply.inventar@gmail.com>".parse().unwrap())
+        .to(email.parse().unwrap())
+        .subject("Verify Your Account")
+        .body(String::from("SOME CODE HERE"))
+        .unwrap();
+    
+    dotenv().ok();
+    let creds = Credentials::new(env::var("STMP_USERNAME").expect("STMP_USERNAME must be set"), env::var("STMP_PASSWORD").expect("STMP_PASSWORD must be set"));
+    
+    // Open a remote connection to gmail
+    let mailer = SmtpTransport::relay("smtp.gmail.com")
+        .unwrap()
+        .credentials(creds)
+        .build();
+    
+    // Send the email
+    match mailer.send(&email) {
+        Ok(_) => Ok(Status::Created),
+        Err(_) => Err(Status::BadRequest),
     }
 }

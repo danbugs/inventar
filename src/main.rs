@@ -28,7 +28,7 @@ fn main() {
 
     rocket::ignite()
         .mount("/things", routes![things::create_thing, things::read_things, things::delete_thing])
-        .mount("/users", routes![users::register, users::login])
+        .mount("/users", routes![users::register, users::login, users::send_mail_to])
         .mount("/categories", routes![categories::read_categories, categories::create_category])
         .register(catchers![catchers::not_found])
         .attach(cors)
