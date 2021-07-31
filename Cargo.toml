@@ -16,6 +16,7 @@ rocket_contrib = "0.4.10"
 argon2rs = "0.2.5"
 rand = "0.8.4"
 lettre = "0.10.0-rc.3"
+maud = "0.22.2"
 
 [[bin]]
 name = "inventar_api"
