@@ -6,13 +6,14 @@ export async function createThing() {
   let formData = new FormData(formElement);
 
   let nt;
+  let uploadedImage = await uploadImage();
   if (formData.get("category") === "new") {
     nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
-      await createCategory(),
+      await createCategory(formData),
       formData.get("thing_description"),
-      uploadImage()
+      uploadedImage
     );
   } else {
     nt = new IncomingThing(
@@ -20,7 +21,7 @@ export async function createThing() {
       sessionStorage.getItem("loggedIn"),
       parseInt(formData.get("category")),
       formData.get("thing_description"),
-      await uploadImage()
+      uploadedImage
     );
   }
 
@@ -36,9 +37,7 @@ export async function createThing() {
   }
 }
 
-export async function createCategory() {
-  let formElement = document.querySelector("form");
-  let formData = new FormData(formElement);
+export async function createCategory(formData) {
   let nc = new IncomingCategory(
     formData.get("category_name"),
     formData.get("category_color"),
