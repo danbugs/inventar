@@ -15,7 +15,7 @@ use self::handlers::catchers;
 use self::handlers::categories;
 
 fn main() {
-    let allowed_origins = AllowedOrigins::some_exact(&[constants::PROD_ADDRESS, constants::DEV_ADDRESS]);
+    let allowed_origins = AllowedOrigins::some_exact(&[constants::PROD_ADDRESS, constants::DEV_ADDRESS, constants::DEV_ADDRESS_2]);
 
     let cors = rocket_cors::CorsOptions {
         allowed_origins,

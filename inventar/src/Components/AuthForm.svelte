@@ -39,7 +39,7 @@
   </div>
 {:then _}
   <div class="col-sm-12 col-md-6">
-    <div class="bg-light m-3 p-3 border rounded-3">
+    <div class="fit-captcha bg-light m-3 p-3 border rounded-3">
       {#if isRegistered}
         <LoginForm bind:isRegistered on:submit={handleLogin} />
       {:else}
@@ -61,5 +61,9 @@
 <style>
   .increased-letter-spacing {
     letter-spacing: 0.15em;
+  }
+
+  .fit-captcha {
+    min-width:fit-content;
   }
 </style>

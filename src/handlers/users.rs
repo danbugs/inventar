@@ -40,7 +40,7 @@ pub fn register(ru: Json<RegisteringUser>) -> Result<Status, Status> {
 
     dotenv().ok();
     
-    let host = env::var("HOST").expect("HOST must be set");
+    let host = env::var("DEV_OR_PROD").expect("DEV_OR_PROD must be set");
 
     let verification_link = format!(
         "{}/users/verify/{}/{}",

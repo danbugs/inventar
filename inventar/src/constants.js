@@ -1,4 +1,4 @@
-export let server = window.location.hostname == "localhost" ? "http://localhost:8000" : "https://inventar-api.herokuapp.com";
+export let server = window.location.hostname == "localhost" || "127.0.0.1" ? "http://localhost:8000" : "https://inventar-api.herokuapp.com";
 
 export let colorStyles = [
     {color_name: "Blue", color_value:"text-white bg-primary"},

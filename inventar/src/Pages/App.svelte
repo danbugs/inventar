@@ -60,7 +60,7 @@
 
 <style>
   .landing-background {
-    background-image: url("https://i.imgur.com/0YGGamV.jpg");
+    background-image: url("/bg.jpg");
     background-repeat: no-repeat;
   }
 </style>

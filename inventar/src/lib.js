@@ -4,20 +4,23 @@ import { server, colorStyles } from "./constants";
 export async function createThing() {
   let formElement = document.querySelector("form");
   let formData = new FormData(formElement);
+
   let nt;
   if (formData.get("category") === "new") {
     nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
       await createCategory(),
-      formData.get("thing_description")
+      formData.get("thing_description"),
+      uploadImage()
     );
   } else {
     nt = new IncomingThing(
       formData.get("thing_name"),
       sessionStorage.getItem("loggedIn"),
       parseInt(formData.get("category")),
-      formData.get("thing_description")
+      formData.get("thing_description"),
+      await uploadImage()
     );
   }
 
@@ -130,7 +133,6 @@ export async function register(ru) {
     body: JSON.stringify(ru),
   });
 
-  console.log(res);
   if (res.status === 201) {
     return true;
   } else if (res.status === 202) {
@@ -159,4 +161,25 @@ export async function readCategories() {
 function pickRandomColorStyle() {
   return colorStyles[Math.floor(Math.random() * colorStyles.length)]
     .color_value;
+}
+
+async function uploadImage() {
+  let thing_img = document.querySelector('input[type=file]').files[0];
+  if (thing_img) {
+    let form = new FormData();
+    form.append("image", thing_img);
+  
+    let img_obj = await fetch("https://api.imgur.com/3/image/", {
+      method: "POST",
+      headers: {
+        Authorization: "Client-ID daf84988891e873",
+      },
+      body: form,
+    })
+      .then((data) => data.json())
+
+    return img_obj.data.link;
+  } else {
+    return "";
+  }
 }

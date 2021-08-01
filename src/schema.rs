@@ -14,6 +14,7 @@ table! {
         user_id -> Int4,
         category_id -> Nullable<Int4>,
         thing_description -> Nullable<Varchar>,
+        thing_img -> Nullable<Varchar>,
     }
 }
 
