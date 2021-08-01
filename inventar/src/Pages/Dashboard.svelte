@@ -4,7 +4,6 @@
   import ErrorView from "../Components/ErrorView.svelte";
   import CreateThingForm from "../Components/CreateThingForm.svelte";
   import ThingCard from "../Components/ThingCard.svelte";
-  import App from "./App.svelte";
 
   let things;
   let categories;
