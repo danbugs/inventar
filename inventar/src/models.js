@@ -1,9 +1,10 @@
 export class IncomingThing {
-    constructor(thing_name, user_name, category_id = '', thing_description) {
+    constructor(thing_name, user_name, category_id = '', thing_description, thing_img) {
         this.thing_name = thing_name;
         this.user_name = user_name;
         this.category_id = category_id;
         this.thing_description = thing_description;
+        this.thing_img = thing_img;
     }
 }
 

@@ -8,6 +8,9 @@
 
 <div class="col-sm-12 col-md-3">
   <div class="card m-3 text-center">
+    {#if thing.thing_img}
+    <img class="card-img-top" src={thing.thing_img} alt="thing display">
+    {/if}
     <div class="card-body">
       <h5 class="card-title">{thing.thing_name}</h5>
       {#if thing.thing_description}

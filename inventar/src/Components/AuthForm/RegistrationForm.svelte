@@ -39,9 +39,19 @@
       lowercase letter, one uppercase letter, one numeric digit, and one special
       character.
     </div>
+    <div
+      class="g-recaptcha"
+      data-sitekey="6LdT3M0bAAAAAJObLYDcRO7N4f4XXBbjBgMmcBRe"
+      data-callback="verifyUser"
+    />
   </div>
-  <div class="g-recaptcha" data-sitekey="6LdT3M0bAAAAAJObLYDcRO7N4f4XXBbjBgMmcBRe" data-callback="verifyUser" />
-  <input id="register-btn" class="btn btn-primary" type="submit" value="Register" disabled/>
+  <input
+    id="register-btn"
+    class="btn btn-primary"
+    type="submit"
+    value="Register"
+    disabled
+  />
 </form>
 <hr />
 <div class="row justify-content-md-center">

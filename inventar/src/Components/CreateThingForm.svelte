@@ -12,6 +12,20 @@
       isCreatingNewCategory = false;
     }
   }
+
+  function previewFile() {
+  const preview = document.querySelector('img');
+  const file = document.querySelector('input[type=file]').files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
 </script>
 
 <div class="row">
@@ -22,22 +36,37 @@
     <hr />
     <form on:submit|preventDefault>
       <div class="mb-3 form-group row">
-        <div class="col-sm-12 col-md-2 ">
+        <div class="mt-1 col-sm-12 col-md-2 ">
+          <label class="col-form-label" for="thing_img">Thing image:</label>
+        </div>
+        <div class="mt-1 col-sm-12 col-md-10">
+          <input class="form-control" type="file" accept="image/png, image/jpeg" name="thing_img" on:change={previewFile}/>
+        </div>
+        <div class="form-text">
+          The uploaded image will be hosted by Imgur.
+        </div>
+        <div class="mt-1 col-sm-12 col-md-2 ">
+          <p>Thing Image Preview:</p>
+        </div>
+        <div class="justify-content-center mt-1 col-sm-12 col-md-10 ">
+          <img class="img-thumbnail" src="" alt="Upload to preview...">
+        </div>
+        <div class="mt-1 col-sm-12 col-md-2 ">
           <label class="col-form-label" for="thing_name">Thing name:</label>
         </div>
-        <div class="col-sm-12 col-md-10">
+        <div class="mt-1 col-sm-12 col-md-10">
           <input class="form-control" type="text" name="thing_name" required />
         </div>
-        <div class="col-sm-12 col-md-2 ">
+        <div class="mt-1 col-sm-12 col-md-2 ">
           <label class="col-form-label" for="thing_description">Thing description:</label>
         </div>
-        <div class="col-sm-12 col-md-10">
+        <div class="mt-1 col-sm-12 col-md-10">
           <textarea class="form-control" rows="4"type="text" name="thing_description"/>
         </div>
-        <div class="col-sm-12 col-md-2 ">
+        <div class="mt-1 col-sm-12 col-md-2 ">
           <label class="col-form-label" for="category">Thing Category:</label>
         </div>
-        <div class="col-sm-12 col-md-10">
+        <div class="mt-1 col-sm-12 col-md-10">
           <select
             name="category"
             bind:value={selectedCategory}
@@ -52,12 +81,12 @@
           </select>
         </div>
         {#if isCreatingNewCategory}
-          <div class="col-sm-12 col-md-2 ">
+          <div class="mt-1 col-sm-12 col-md-2 ">
             <label class="col-form-label" for="category_name"
               >Category Name:</label
             >
           </div>
-          <div class="col-sm-12 col-md-10">
+          <div class="mt-1 col-sm-12 col-md-10">
             <input
               class="form-control"
               type="text"
@@ -65,12 +94,12 @@
               required
             />
           </div>
-          <div class="col-sm-12 col-md-2 ">
+          <div class="mt-1 col-sm-12 col-md-2 ">
             <label class="col-form-label" for="category_color"
               >Category Color:</label
             >
           </div>
-          <div class="col-sm-12 col-md-10">
+          <div class="mt-1 col-sm-12 col-md-10">
             <select
               name="category_color"
               class="form-select"
