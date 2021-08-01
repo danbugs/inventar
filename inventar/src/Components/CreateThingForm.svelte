@@ -42,11 +42,14 @@
         <div class="mt-1 col-sm-12 col-md-10">
           <input class="form-control" type="file" accept="image/png, image/jpeg" name="thing_img" on:change={previewFile}/>
         </div>
+        <div class="form-text">
+          The uploaded image will be hosted by Imgur.
+        </div>
         <div class="mt-1 col-sm-12 col-md-2 ">
           <p>Thing Image Preview:</p>
         </div>
         <div class="justify-content-center mt-1 col-sm-12 col-md-10 ">
-          <img id="thing_img_preview" src="" height="200" alt="Upload to preview...">
+          <img class="img-thumbnail" src="" alt="Upload to preview...">
         </div>
         <div class="mt-1 col-sm-12 col-md-2 ">
           <label class="col-form-label" for="thing_name">Thing name:</label>
