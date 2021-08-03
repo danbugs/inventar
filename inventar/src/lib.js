@@ -117,6 +117,12 @@ function validatePassword(password) {
   return re.test(password);
 }
 
+function verifyPassword(password) {
+  let formElement = document.getElementById("registerForm");
+  let formData = new FormData(formElement);
+  return password == formData.get("user_pwd_verify");
+}
+
 function validateUsername(username) {
   const re = /^[a-zA-Z][a-zA-Z0-9.$!@\-_]{2,}$/;
   return re.test(username);
@@ -124,6 +130,7 @@ function validateUsername(username) {
 
 export async function register(ru) {
   if (!validateEmail(ru.user_email)) throw new Error("Invalid e-mail");
+  if (!verifyPassword(ru.user_pwd)) throw new Error("Passwords don't match");
   if (!validatePassword(ru.user_pwd)) throw new Error("Invalid password");
   if (!validateUsername(ru.user_name)) throw new Error("Invalid username");
 

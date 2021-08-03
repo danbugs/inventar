@@ -39,8 +39,10 @@
       lowercase letter, one uppercase letter, one numeric digit, and one special
       character.
     </div>
+    <label class="form-label" for="user_pwd_verify">Verify Password:</label><br />
+    <input class="form-control" type="password" name="user_pwd_verify" required />
     <div
-      class="g-recaptcha"
+      class="mt-1 g-recaptcha"
       data-sitekey="6LdT3M0bAAAAAJObLYDcRO7N4f4XXBbjBgMmcBRe"
       data-callback="verifyUser"
     />
