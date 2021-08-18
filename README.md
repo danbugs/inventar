@@ -26,6 +26,11 @@ All the data stored in the app is being hosted on the free-tier of a cloud-based
 5) Check out my `Procfile` and `rust-toolchain` files — that's also needed 👌.
 6) To finish off, if you want to avoid having to push to the Heroku remote all the time, go to the your app's deployment settings and connect to your GitHub repo — we're done! Now, whenever you push to `main/master`, you'll be deploying to Heroku!
 
+## How to run this project locally
+
+- For the front-end, make sure you're in the sub-root inventar folder and run: `npm run dev`.
+- For the back-end, make sure you're in the root inventar folder and run: `cargo run` or `cargo watch -x run` (i.e., if you use cargo watch).
+
 
 
 
